@@ -1,11 +1,85 @@
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+:root{
+  --shadowStyleTop: rgba(255, 255, 255, 0.5);
+  --shadowStyleBottom: rgb(0, 0, 0, 0.25);
+}
 body {
-  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
 }
+#root{
+  width: 100%;
+}
+a{
+  color: black;
+}
+.largeContainerCenter{
+  min-height: 100vh;
+  width: 100%;
+  background-color: rgb(214, 214, 255);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.largeContainer{
+  min-height: 100vh;
+  width: 100%;
+  background-color: rgb(214, 214, 255);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+fieldset{
+  border: 1px solid black;
+  border-radius: 0.25em;
+}
+legend{
+  padding: 0px 0.5em;
+  margin-left: 0.5em;
+  text-transform: capitalize;
+}
+input{
+  height: 2em;
+  outline: none;
+  width: 21em;
+  padding: 0px 0.5em;
+  background-color: transparent;
+  border: none;
+}
+button{
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+  border: none;
+  background: transparent;
+  color: black;
+  box-shadow: -5px -5px 5px var(--shadowStyleTop),
+                5px 5px 5px var(--shadowStyleBottom);
+  text-transform: capitalize;
+  }
+button:hover,
+button:active{
+  box-shadow: -2.5px -2.5px 2.5px var(--shadowStyleTop),
+                2.5px 2.5px 2.5px var(--shadowStyleBottom);
+}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
