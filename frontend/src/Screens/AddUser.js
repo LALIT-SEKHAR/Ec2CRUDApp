@@ -12,6 +12,7 @@ const AddUser = () => {
     password: "",
     age: "",
   });
+  const [avatar, setAvatar] = useState();
 
   useEffect(() => {
     fetchUserData();
@@ -39,23 +40,37 @@ const AddUser = () => {
   const handelSubmit = async (e) => {
     e.preventDefault();
     try {
+      const formData = new FormData();
+      formData.append("avatar", avatar);
+      formData.append("username", value.username);
+      formData.append("email", value.email);
+      formData.append("password", value.password);
+      formData.append("age", value.age);
       const response = await fetch(
         `${process.env.REACT_APP_API_ENDPOINT}/${
           !id ? "User" : "User?id=" + id
         }`,
         {
           method: !id ? "POST" : "PUT",
-          body: JSON.stringify(value),
           headers: {
-            "Content-type": "application/json; charset=UTF-8",
+            Accept: "application/json",
           },
+          body: formData,
         }
       );
       const data = await response.json();
-      history.push("/");
+      if (!data.error) {
+        history.push("/");
+      } else {
+        console.log(data.message);
+      }
     } catch (error) {
-      console.log(error);
+      console.log("error: ", error.message);
     }
+  };
+
+  const handelFileUpload = (e) => {
+    setAvatar(e.target.files[0]);
   };
 
   return (
@@ -113,8 +128,11 @@ const AddUser = () => {
             min={1}
             name="age"
             type="number"
-            required
           />
+        </fieldset>
+        <fieldset>
+          <legend>age</legend>
+          <input onChange={handelFileUpload} type="file" />
         </fieldset>
         <button>Submit</button>
       </form>

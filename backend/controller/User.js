@@ -1,16 +1,39 @@
+const AWS = require("aws-sdk");
+
+const s3 = new AWS.S3({
+  accessKeyId: process.env.AWS_ACCESSKEYID,
+  secretAccessKey: process.env.AWS_SECRETACCESSKEY,
+});
+
 const User = require("../models/User");
 exports.AddUser = (req, res) => {
-  const newUser = new User(req.body);
-  newUser.save((err, user) => {
+  const params = {
+    Bucket: process.env.AWS_BUCKET_NAME,
+    Key: `${req.body.username}Avatar`,
+    Body: req.files.avatar.data,
+    ContentType: req.files.avatar.mimetype,
+  };
+  s3.upload(params, (err, data) => {
     if (err) {
-      console.log(err);
+      console.log(err.message);
       return res.status(500).json({
-        error: "unable to save user on BD",
+        error: "unable to save avatar on S3 bucket",
         message: err.message,
       });
     }
-    return res.status(200).json({
-      message: "user saved successfully",
+    req.body.avatar = data.Location;
+    const newUser = new User(req.body);
+    newUser.save((err, user) => {
+      if (err) {
+        console.log(err.message);
+        return res.status(500).json({
+          error: "unable to save user on BD",
+          message: err.message,
+        });
+      }
+      return res.status(200).json({
+        message: "user saved successfully",
+      });
     });
   });
 };
@@ -63,6 +86,19 @@ exports.DeleteUser = (req, res) => {
         message: err.message,
       });
     }
-    return res.status(200).json(user);
+    let params = {
+      Bucket: process.env.AWS_BUCKET_NAME,
+      Key: `${user.username}Avatar`,
+    };
+    s3.deleteObject(params, function (err, data) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          error: "unable to delete user avatar on s3 bucket",
+          message: err.message,
+        });
+      }
+      return res.status(200).json(user);
+    });
   });
 };

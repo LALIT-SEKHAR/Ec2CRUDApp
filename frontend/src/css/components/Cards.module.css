@@ -26,9 +26,21 @@
 }
 .name{
     text-align: center;
+    word-wrap: break-word;
     font-size: 1.2em;
     text-transform: capitalize;
 }
 .email{
     font-size: 1em;
+}
+.AvatarWarper{
+    height: 5em;
+    width: 5em;
+    border-radius: 100%;
+    overflow: hidden;
+    
+}
+.Avatar{
+    height: 100%;
+    width: auto;
 }

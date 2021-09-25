@@ -22,7 +22,7 @@ const Home = () => {
                 </button></Link>
             </header>
             <div className={HomeCss.container}>
-            {users && users.map((user) => { return <Cards key={user._id} id={user._id} name={user.username} email={user.email} age={user.age}/>})}
+            {users && users.map((user) => {return <Cards key={user._id} id={user._id} name={user.username} email={user.email} age={user.age} avatar={user.avatar}/>})}
             </div>
         </div>
     );

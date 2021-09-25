@@ -20,6 +20,9 @@ const Cards = ({ id, name, email, avatar, age }) => {
 
   return (
     <div className={CardsCss.Card} id={id}>
+      <span className={CardsCss.AvatarWarper}>
+        <img className={CardsCss.Avatar} src={avatar} alt={name} />
+      </span>
       {name && <h1 className={CardsCss.name}>{name}</h1>}
       {email && <p className={CardsCss.email}>{email}</p>}
       {age && <p className={CardsCss.age}>{age} year old</p>}

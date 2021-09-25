@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const path = require("path");
+const upload = require("express-fileupload");
 const User = require("./routes/User");
 
 //DB CONNECTION
@@ -15,6 +16,7 @@ mongoose
   .catch((err) => console.log(`DATABASE ERROR ${err}`));
 
 app.use(cors());
+app.use(upload());
 app.use(express.json());
 
 app.use("/api", User);
