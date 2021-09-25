@@ -40,9 +40,11 @@ const AddUser = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_ENDPOINT}/User`,
+        `${process.env.REACT_APP_API_ENDPOINT}/${
+          !id ? "User" : "User?id=" + id
+        }`,
         {
-          method: "POST",
+          method: !id ? "POST" : "PUT",
           body: JSON.stringify(value),
           headers: {
             "Content-type": "application/json; charset=UTF-8",

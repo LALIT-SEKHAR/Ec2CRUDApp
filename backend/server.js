@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const path = require("path");
 const User = require("./routes/User");
 
 //DB CONNECTION
@@ -17,6 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api", User);
+app.use(express.static(path.join(__dirname, "../frontend/build")));
 
 app.get("/test", (req, res) => {
   res.send("<H1>👋😀 Hello.</H1>");
